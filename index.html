@@ -1,64 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Site de Teste</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden; /* Para evitar a rolagem horizontal */
-    }
-
-    header {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    /* Estilo para as imagens de fundo */
-    .background-slider {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      animation: slide 10s infinite; /* Animação para os slides */
-    }
-
-    /* Animação de slide */
-    @keyframes slide {
-      0% {
-        opacity: 100;
-      }
-      25% {
-        opacity: 100;
-      }
-      75% {
-        opacity: 100;
-      }
-      100% {
-        opacity: 100;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slide Show</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>TESTE</h1>
-  </header>
-  <!-- Container para as imagens de fundo -->
-  <div class="background-slider">
-    <img src="https://pixabay.com/pt/photos/estrada-floresta-cair-outono-1072823/" alt="https://pixabay.com/pt/photos/estrada-floresta-cair-outono-1072823/">
-    <img src="https://pixabay.com/pt/photos/ponte-parque-jardim-jardim-japon%C3%AAs-53769/" alt="https://pixabay.com/pt/photos/ponte-parque-jardim-jardim-japon%C3%AAs-53769/">
-    <img src="https://pixabay.com/pt/illustrations/noite-floresta-pirilampo-luz-3078326/" alt="https://pixabay.com/pt/illustrations/noite-floresta-pirilampo-luz-3078326/">
-    <!-- Adicione quantas imagens desejar -->
-  </div>
+    <div class="container">
+        <div class="arrow l" onclick="prev()">
+            <img src="l.png" alt="l">
+        </div>
+        <div class="slide slide-1">
+             <div class="caption">
+                 <h3>CCM YVONE PIMENTEL</h3>
+                 <p>Seja Bem vindo a Nossa Escola!</p>
+             </div>
+        </div>
+        <div class="slide slide-2">
+            <div class="caption">
+                <h3>CONHEÇA MAIS SOBRE NOSSO COLÉGIO</h3>
+                <p>Possuimos instalações de primeira, ótimos profissionais, local ideal para se estudar!</p>
+            </div>
+       </div>
+       
+       <div class="arrow r" onclick="next()">
+            <img src="r.png" alt="r">
+        </div>
+    </div>
 
-  <!-- Conteúdo do site aqui -->
+    <script>
+        let slide = document.querySelectorAll('.slide');
+        var current = 0;
+
+        function cls(){
+            for(let i = 0; i < slide.length; i++){
+                  slide[i].style.display = 'none';
+            }
+        }
+
+        function next(){
+            cls();
+            if(current === slide.length-1) current = -1;
+            current++;
+
+            slide[current].style.display = 'block';
+            slide[current].style.opacity = 0.4;
+
+            var x = 0.4;
+            var intX = setInterval(function(){
+                x+=0.1;
+                slide[current].style.opacity = x;
+                if(x >= 1) {
+                    clearInterval(intX);
+                    x = 0.4;
+                }
+            }, 100);
+
+        }
+
+        function prev(){
+            cls();
+            if(current === 0) current = slide.length;
+            current--;
+
+            slide[current].style.display = 'block';
+            slide[current].style.opacity = 0.4;
+
+            var x = 0.4;
+            var intX = setInterval(function(){
+                x+=0.1;
+                slide[current].style.opacity = x;
+                if(x >= 1) {
+                    clearInterval(intX);
+                    x = 0.4;
+                }
+            }, 100);
+
+        }
+
+        function start(){
+            cls();
+            slide[current].style.display = 'block';
+        }
+        start();
+    </script>
 </body>
 </html>
